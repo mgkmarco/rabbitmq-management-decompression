@@ -1,0 +1,5 @@
+# rabbitmq-management-decompression
+
+A simple plugin for decompressing of payloads from the rabbitmq management
+
+http://www.rabbitmq.com/plugin-development.html
