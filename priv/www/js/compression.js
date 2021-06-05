@@ -44,7 +44,8 @@ function decompress(initiator, compressionAlgorithm, compressedPayload, payloadE
             console.log('Compression algorithm not been implemented!');
     }
 
-    $('#' + source).text(payload.replace(/\r\n/g));
+    var formatted = prettyIfJson(payload);
+    $('#' + source).text(formatted);
 }
 
 function BrotliDecompress(compressedPayload){
@@ -57,4 +58,14 @@ function BrotliDecompress(compressedPayload){
     }
 
     return new TextDecoder().decode(BrotliDecode(array));
+}
+
+function prettyIfJson(payload){
+    try{
+        var jsonString = JSON.parse(payload);
+        
+        return JSON.stringify(jsonString, null, 2); 
+    } catch(e){
+        return payload;
+    }
 }
