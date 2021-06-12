@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+      
+  externalhost:
+    image: rabbit-test
+    build:
+      context: .
+      args:
+        - definitions=definitions.json
+      dockerfile: Dockerfile
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    restart: on-failure

@@ -1,0 +1,59 @@
+{
+	"users": [
+		{
+			"name": "sbdev",
+			"password_hash": "/vN+RhxvJkf59qAaZpb4L5iM7j5CWPJFuvCL/f5Wz0WyUqg9",
+			"hashing_algorithm": "rabbit_password_hashing_sha256",
+			"tags": "administrator",
+			"limits": {}
+		},
+		{
+			"name": "guest",
+			"password_hash": "XbNDpn598SJ52yJqFxgQ+qni1JsfVoc0Sq6vUlu16cyHg3Th",
+			"hashing_algorithm": "rabbit_password_hashing_sha256",
+			"tags": "administrator",
+			"limits": {}
+		}
+	],
+	"vhosts": [ 
+		{ 
+			"name": "sbed-ss" 
+		},
+		{ 
+			"name": "sbed-push" 
+		},		
+		{ 
+			"name": "/" 
+		} 
+	], 
+	"permissions": [ 
+		{ 
+			"user": "guest", 
+			"vhost": "sbed-ss", 
+			"configure": ".*", 
+			"write": ".*", 
+			"read": ".*" 
+		}, 
+		{ 
+			"user": "guest", 
+			"vhost": "/", 
+			"configure": ".*", 
+			"write": ".*", 
+			"read": ".*" 
+		}, 
+		{ 
+			"user": "sbdev", 
+			"vhost": "sbed-ss", 
+			"configure": ".*", 
+			"write": ".*", 
+			"read": ".*" 
+		},
+		{ 
+			"user": "sbdev", 
+			"vhost": "sbed-push", 
+			"configure": ".*", 
+			"write": ".*", 
+			"read": ".*" 
+		}		
+	] 
+}

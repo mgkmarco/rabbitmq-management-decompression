@@ -57,5 +57,3 @@ RUN rabbitmq-plugins enable rabbitmq_consistent_hash_exchange
 ####RUN cd /usr/local/bin; \
     ####chmod +x def_script.sh; \
     ####./def_script.sh;
-# Expose Rabbitmq server port
-####EXPOSE 5672
