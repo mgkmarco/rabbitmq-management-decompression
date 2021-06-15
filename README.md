@@ -82,7 +82,7 @@ Other useful links:
 
 ## Docker Image & Container Build
 
-All the required resources to build and run the container are found here: [Image folder](../image)
+All the required resources to build and run the container are found here: [Image folder](/image)
 
 ### Broker Definitions as Parameter 
 
