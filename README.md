@@ -70,9 +70,9 @@ Make sure to have all the required pre-requisites:
 
 - [Required Libraries and Tools](https://www.rabbitmq.com/build-server.html#prerequisites) 
 
-If on linux, one might need to install [asdf](https://github.com/asdf-vm/asdf) to manage different versions.
+If on linux, one might need to install [asdf](https://github.com/asdf-vm/asdf) to manage different versions of the OTP.
 
-Run usual MAKE commands (```make clean/distclean/run-broker```)
+Run usual MAKE commands (```make clean/distclean/dist/run-broker```). To generate ```*.EZ``` execute ```make dist DIST_AS_EZS=1``` 
 
 Other useful links:
 
@@ -94,8 +94,10 @@ To pass your own definitions.json, there are two possible ways (_definitions can
 
 Once the container is started, the definitions.json is copied over to ```/etc/rabbitmq```. If you need to alter it vi or whatever tool you use once inside the container, i.e. ```docker container exec -it <container-name/id> /bin/bash``` and then ```cd /etc/rabbitmq``` 
 
+The script ```passhash.sh``` should be used to generate a SHA256 of the password for the definitions file. To generate the password has just execute as ```sh passhash.sh "thisismypassword"```. For the record, the script is also copied over in the container image location ```/usr/local/bin/``` for any future needs. 
+
 If no broker definitions are passed, default behaviour is applied. 
 
 ### Create and Run from Image
 
-Usual process (remember to expose ports): ```docker run -p 5672:5672 -p 15672:15672 <image-id/name:tag>```
+Usual process (remember to expose ports): ```docker run -d -p 5672:5672 -p 15672:15672 --name <container-name> <image-id/name:tag>```

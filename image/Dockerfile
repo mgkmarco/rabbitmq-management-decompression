@@ -1,9 +1,8 @@
 ARG PLUGIN_VERSION=1.0.0
 # Use the latest stable RabbitMQ Management Decompression plugin
-ARG PLUGIN_NAMED_VERSION="rabbitmq_management_decompression-v$PLUGIN_VERSION.ez"
+ARG PLUGIN_NAMED_VERSION="rabbitmq_management_decompression-$PLUGIN_VERSION.ez"
 
-# The official Canonical Ubuntu Focal image is ideal from a security perspective,
-# especially for the enterprises that we, the RabbitMQ team, have to deal with
+# The official Canonical Ubuntu Focal image is ideal from a security perspective
 FROM ubuntu:20.04 AS ubuntu
 ARG PLUGIN_VERSION
 ARG PLUGIN_NAMED_VERSION
