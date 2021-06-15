@@ -3,11 +3,11 @@ version: '3.8'
 services:
       
   externalhost:
-    image: rabbit-test
+    image: rabbit-management-decompression
     build:
       context: .
       args:
-        - definitions=definitions.json
+        - definitions=_definitions.json
       dockerfile: Dockerfile
     ports:
       - "15672:15672"

@@ -1,5 +1,6 @@
 # https://www.rabbitmq.com/passwords.html
 #!/bin/bash
+# example:>$ ./passhash.sh "this is the password that i want to hash"
 PWD_HEX=$(echo -n $1 | xxd -p)
 SALT="908D C60A" 
 HEX="$SALT $PWD_HEX"

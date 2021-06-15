@@ -1,6 +1,3 @@
-# docker-compose build --build-arg definitions=_definitions.json
-# docker build --build-arg definitions=_definitions.json -t rabbit_consistent:1.0 .
-
 ARG PLUGIN_VERSION=1.0.0
 # Use the latest stable RabbitMQ Management Decompression plugin
 ARG PLUGIN_NAMED_VERSION="rabbitmq_management_decompression-v$PLUGIN_VERSION.ez"
@@ -35,25 +32,34 @@ RUN cd "$PLUGINS_FOLDER"; \
 
 # Enable consistent hash plugin for the exchange
 RUN rabbitmq-plugins enable rabbitmq_consistent_hash_exchange
-# Use --build-arg=definitions=<custom-definitions.json> to override at build time
-####ARG definitions=definitions.json  
-# Copy passhash.sh and if it exists the $definitions json file 
-####COPY passhash.sh $definitions* /usr/local/bin/
-# aasdsd
 
-####RUN echo -e "#!/bin/bash\n" >> /usr/local/bin/def_script.sh
-####RUN echo -e "if [ -f /usr/local/bin/$definitions ]; then\n" \
-            ####"mv /usr/local/bin/$definitions /etc/rabbitmq;\n" \ 
-            ####"cd /etc/rabbitmq/;\n" \
-            ####"mv $definitions definitions.json;\n" \ 
-            ####"echo loopback_users.guest = false >> /etc/rabbitmq/rabbitmq.conf;\n" \
-            ####"echo listeners.tcp.default = 5672 >> /etc/rabbitmq/rabbitmq.conf;\n" \
-            ####"echo management.tcp.port = 15672 >> /etc/rabbitmq/rabbitmq.conf;\n" \
-            ####"echo "load_definitions = /etc/rabbitmq/definitions.json" >> /etc/rabbitmq/rabbitmq.conf;\n" \
-            ####"chown rabbitmq:rabbitmq rabbitmq.conf;\n" \
-         ####"fi\n" >> /usr/local/bin/def_script.sh;
-         # "fi\n" > /etc/rabbitmq/def_script.sh;
+# Enable shovel and shovel management plugin 
+RUN rabbitmq-plugins enable rabbitmq_shovel
+RUN rabbitmq-plugins enable rabbitmq_shovel_management
+
+# Enable consistent hash plugin for the exchange
+RUN rabbitmq-plugins enable rabbitmq_management_decompression
+
+# Use --build-arg=definitions=<custom-definitions.json> to override at build time
+ARG definitions=definitions.json  
+# Copy passhash.sh and if it exists the $definitions json file 
+COPY passhash.sh $definitions* /usr/local/bin/
+
+# Copy definitions over to the actual location if it is passed as a variable
+# Give ownership to the rabbitmq user and other intermediate steps
+RUN echo -e "#!/bin/bash\n" >> /usr/local/bin/def_script.sh
+RUN echo -e "if [ -f /usr/local/bin/$definitions ]; then\n" \
+            "mv /usr/local/bin/$definitions /etc/rabbitmq;\n" \ 
+            "cd /etc/rabbitmq/;\n" \
+            "mv $definitions definitions.json;\n" \ 
+            "echo loopback_users.guest = false >> /etc/rabbitmq/rabbitmq.conf;\n" \
+            "echo listeners.tcp.default = 5672 >> /etc/rabbitmq/rabbitmq.conf;\n" \
+            "echo management.tcp.port = 15672 >> /etc/rabbitmq/rabbitmq.conf;\n" \
+            "echo "load_definitions = /etc/rabbitmq/definitions.json" >> /etc/rabbitmq/rabbitmq.conf;\n" \
+            "chown rabbitmq:rabbitmq rabbitmq.conf;\n" \
+         "fi\n" >> /usr/local/bin/def_script.sh;
+         
 # Swith to directory, set as executable, execute script
-####RUN cd /usr/local/bin; \
-    ####chmod +x def_script.sh; \
-    ####./def_script.sh;
+RUN cd /usr/local/bin; \
+    chmod +x def_script.sh; \
+    def_script.sh;
