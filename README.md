@@ -72,7 +72,7 @@ Make sure to have all the required pre-requisites:
 
 If on linux, one might need to install [asdf](https://github.com/asdf-vm/asdf) to manage different versions.
 
-Run usual MAKE commands (make clean/distclean/run-broker)
+Run usual MAKE commands (```make clean/distclean/run-broker```)
 
 Other useful links:
 
@@ -86,16 +86,16 @@ All the required resources to build and run the container are found here: [Image
 
 ### Broker Definitions as Parameter 
 
-When building the container, it is possible to pass a broker definitions file such as [_definitions.json_](../image/_definitions.json). The broker definitions will spawn an instance of the broker with any usernames and passwords, v-hosts, shovels, exchanges, queues, etc... It is extremely useful to mimic already existing environments. 
+When building the container, it is possible to pass a broker definitions file such as [_definitions.json_](/image/_definitions.json). The broker definitions will spawn an instance of the broker with any usernames and passwords, v-hosts, shovels, exchanges, queues, etc... It is extremely useful to mimic already existing environments. 
 
 To pass your own definitions.json, there are two possible ways (_definitions can be anything, as long as it is a valid json): 
-1. Via docker compose, such as: ```"docker-compose build --build-arg definitions=_definitions.json"```
-2. Or when building the image manually, such as: ```"docker build --build-arg definitions=_definitions.json -t rabbit_consistent:1.0 ."```
+1. Via docker compose, such as: ```docker-compose build --build-arg definitions=_definitions.json```
+2. Or when building the image manually, such as: ```docker build --build-arg definitions=_definitions.json -t rabbit_consistent:1.0 .```
 
-Once the container is started, the definitions.json is copied over to ```"/etc/rabbitmq"```. If you need to alter it vi or whatever tool you use once inside the container, i.e. ```"docker container exec -it <container-name/id> /bin/bash"``` and then ```"cd /etc/rabbitmq"``` 
+Once the container is started, the definitions.json is copied over to ```/etc/rabbitmq```. If you need to alter it vi or whatever tool you use once inside the container, i.e. ```docker container exec -it <container-name/id> /bin/bash``` and then ```cd /etc/rabbitmq``` 
 
 If no broker definitions are passed, default behaviour is applied. 
 
 ### Create and Run from Image
 
-Usual process (remember to expose ports): ```"docker run -p 5672:5672 -p 15672:15672 <image-id/name:tag>"```
+Usual process (remember to expose ports): ```docker run -p 5672:5672 -p 15672:15672 <image-id/name:tag>```
