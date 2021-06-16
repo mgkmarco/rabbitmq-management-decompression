@@ -1,0 +1,11 @@
+{application, 'rabbitmq_management_decompression', [
+	{description, "Decompression of Messages"},
+	{vsn, "1.0.0"},
+	{modules, ['rabbit_compression']},
+	{registered, []},
+	{applications, [kernel,stdlib,rabbit_common,rabbit,rabbitmq_management]},
+	{env, []},
+		{
+		broker_version_requirements, []
+	}
+]}.
