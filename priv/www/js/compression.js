@@ -24,7 +24,11 @@ get_msgs = function(params) {
 }
 
 function isCompressed(messageProperties){
-    var compressionAlgorithm = messageProperties.headers[compressionPropertyKey];
+    var compressionAlgorithm = null;
+
+    if(messageProperties.headers !== undefined){
+        compressionAlgorithm = messageProperties.headers[compressionPropertyKey];
+    }
 
     if(compressionAlgorithm == null){
         return [false, null];
